@@ -1,6 +1,7 @@
 ﻿using CompanyCMD.Repository;
-using CompanyCMD.Shared;
+using CompanyCMD.Models;
 using CompanyCMD.View;
+using CompanyCMD.Controller;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +16,47 @@ namespace CompanyCMD
     {
         static void Main(string[] args)
         {
-            IEnumerable<Department> d = DepartmentRepository.getInstance().RetrieveAll();
+            // Start by using the company controller
+            IController cont = new CompanyController(CompanyRepository.getInstance(), new CompanyViewer2());
+
+            for (char k; (k = Console.ReadKey().KeyChar) != 'x';)
+            {
+                switch (k)
+                {
+                    case '1':
+                        cont.POST();
+                        break;
+                    case '2':
+                        cont.GET();
+                        break;
+                    case '3':
+                        cont.PATCH();
+                        break;
+                    case '4':
+                        cont.DELETE();
+                        break;
+                    case 'c':
+                    case 'C':
+                        cont = new CompanyController(CompanyRepository.getInstance(), new CompanyViewer2());
+                        break;
+                    case 'e':
+                    case 'E':
+                        cont = new EmployeeController(EmployeeRepository.getInstance(), new EmployeeViewer2());
+                        break;
+                    case 'a':
+                    case 'A':
+                        //cont = new AddressController(AddressRepository.getInstance(), new AddressViewer2());
+                        break;
+                    case 'd':
+                    case 'D':
+                        //cont = new DepartmentController(DepartmentRepository.getInstance(), new DepartmentViewer2());
+                        break;
+                }
+            }
+
+            Environment.Exit(0);
+
+            IEnumerable<Address> d = AddressRepository.getInstance().RetrieveAll();
             /*IRepository<object> repository;
             switch(Console.ReadKey().KeyChar)
             {
@@ -47,10 +88,9 @@ namespace CompanyCMD
                         Console.WriteLine("Enter CompanyId:");
                         id = Int32.Parse(Console.ReadLine());
                         new CompanyViewer(CompanyRepository.getInstance()).Print(id);
-                        // create
                         break;
                     case '3':
-                        new DepartmentViewer(DepartmentRepository.getInstance()).PrintAll();
+                        new CompanyViewer(CompanyRepository.getInstance()).PrintAll();
                         break;
                     case '4':
                         Console.WriteLine("Enter CompanyId:");

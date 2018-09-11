@@ -5,13 +5,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CompanyCMD.Shared;
+using CompanyCMD.Models;
 
 namespace CompanyCMD.Repository
 {
     class AddressRepository
     {
-        /*private static AddressRepository instance = new AddressRepository();
+        private static AddressRepository instance = new AddressRepository();
 
         public static AddressRepository getInstance() { return instance; }
         
@@ -21,13 +21,12 @@ namespace CompanyCMD.Repository
             {
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "dbo.spInsertOrUpdateDepartment";
-                cmd.Parameters.AddWithValue("@did", DBNull.Value);
-                cmd.Parameters.AddWithValue("@name", obj.Name);
-                cmd.Parameters.AddWithValue("@description", obj.Description);
-                cmd.Parameters.AddWithValue("@supervisor", obj.Supervisor);
-                cmd.Parameters.AddWithValue("@superDepartment", obj.SuperDepartment);
-                cmd.Parameters.AddWithValue("@companyId", obj.CompanyId);
+                cmd.CommandText = "dbo.spInsertOrUpdateAddress";
+                cmd.Parameters.AddWithValue("@aid", DBNull.Value);
+                cmd.Parameters.AddWithValue("@street", obj.Street);
+                cmd.Parameters.AddWithValue("@zip", obj.Zip);
+                cmd.Parameters.AddWithValue("@place", obj.Place);
+                cmd.Parameters.AddWithValue("@countryCode", obj.Country);
                 var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
                 returnParameter.Direction = ParameterDirection.ReturnValue;
                 try
@@ -86,7 +85,7 @@ namespace CompanyCMD.Repository
             {
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = String.Format("SELECT Id, Name, Description, Supervisor, SuperDepartment, CompanyId FROM dbo.viDepartment WHERE Id = {0}", id[0]);
+                cmd.CommandText = String.Format("SELECT Id, Street, Zip, Place, Country FROM dbo.viAddress WHERE Id = {0}", id[0]);
                 try
                 {
                     con.Open();
@@ -95,14 +94,13 @@ namespace CompanyCMD.Repository
                     {
                         DataTable dt = new DataTable();
                         a.Fill(dt);
-                        Department d = new Department();
-                        d.Id = Convert.ToInt32(dt.Rows[0][dt.Columns.IndexOf("Id")]);
-                        d.Name = Convert.ToString(dt.Rows[0][dt.Columns.IndexOf("Name")]);
-                        d.Description = Convert.ToString(dt.Rows[0][dt.Columns.IndexOf("Description")]);
-                        d.Supervisor = Convert.ToInt32(dt.Rows[0][dt.Columns.IndexOf("Supervisor")]);
-                        d.SuperDepartment = Convert.ToInt32(dt.Rows[0][dt.Columns.IndexOf("SuperDepartment")]);
-                        d.CompanyId = Convert.ToInt32(dt.Rows[0][dt.Columns.IndexOf("CompanyId")]);
-                        return d;
+                        Address obj = new Address();
+                        obj.Id = Convert.ToInt32(dt.Rows[0][dt.Columns.IndexOf("Id")]);
+                        obj.Street = Convert.ToString(dt.Rows[0][dt.Columns.IndexOf("Street")]);
+                        obj.Zip = Convert.ToString(dt.Rows[0][dt.Columns.IndexOf("Zip")]);
+                        obj.Place = Convert.ToString(dt.Rows[0][dt.Columns.IndexOf("Place")]);
+                        obj.Country = Convert.ToString(dt.Rows[0][dt.Columns.IndexOf("Country")]);
+                        return obj;
                     }
                 }
                 finally
@@ -125,7 +123,7 @@ namespace CompanyCMD.Repository
             {
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT Id, Name, Description, Supervisor, SuperDepartment, CompanyId FROM dbo.viDepartment";
+                cmd.CommandText = "SELECT Id, Street, Zip, Place, Country FROM dbo.viAddress";
                 try
                 {
                     con.Open();
@@ -141,11 +139,10 @@ namespace CompanyCMD.Repository
                         {
                             Address obj = new Address();
                             obj.Id = Convert.ToInt32(row[dt.Columns.IndexOf("Id")]);
-                            obj.Name = Convert.ToString(row[dt.Columns.IndexOf("Name")]);
-                            obj.Description = Convert.ToString(row[dt.Columns.IndexOf("Description")]);
-                            obj.Supervisor = row[dt.Columns.IndexOf("Supervisor")].Equals(DBNull.Value) ? (int?)null : Convert.ToInt32(row[dt.Columns.IndexOf("Supervisor")]);
-                            obj.SuperDepartment = row[dt.Columns.IndexOf("SuperDepartment")].Equals(DBNull.Value) ? (int?)null : Convert.ToInt32(row[dt.Columns.IndexOf("SuperDepartment")]);
-                            obj.CompanyId = Convert.ToInt32(row[dt.Columns.IndexOf("CompanyId")]);
+                            obj.Street = Convert.ToString(row[dt.Columns.IndexOf("Street")]);
+                            obj.Zip = Convert.ToString(row[dt.Columns.IndexOf("Zip")]);
+                            obj.Place = Convert.ToString(row[dt.Columns.IndexOf("Place")]);
+                            obj.Country = Convert.ToString(row[dt.Columns.IndexOf("Country")]);
                             list.Add(obj);
                         }
                         return list;
@@ -172,12 +169,11 @@ namespace CompanyCMD.Repository
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "dbo.spInsertOrUpdateAddress";
-                cmd.Parameters.AddWithValue("@did", obj.Id);
-                cmd.Parameters.AddWithValue("@name", obj.Name);
-                cmd.Parameters.AddWithValue("@description", obj.Description);
-                cmd.Parameters.AddWithValue("@supervisor", obj.Supervisor);
-                cmd.Parameters.AddWithValue("@superDepartment", obj.SuperDepartment);
-                cmd.Parameters.AddWithValue("@companyId", obj.CompanyId);
+                cmd.Parameters.AddWithValue("@aid", obj.Id);
+                cmd.Parameters.AddWithValue("@street", obj.Street);
+                cmd.Parameters.AddWithValue("@zip", obj.Zip);
+                cmd.Parameters.AddWithValue("@place", obj.Place);
+                cmd.Parameters.AddWithValue("@countryCode", obj.Country);
                 try
                 {
                     con.Open();
@@ -205,6 +201,5 @@ namespace CompanyCMD.Repository
                 Update(a);
             }
         }
-    */
     }
 }

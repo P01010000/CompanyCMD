@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CompanyCMD.Shared;
+using CompanyCMD.Models;
 
 namespace CompanyCMD.Repository
 {
@@ -94,6 +94,7 @@ namespace CompanyCMD.Repository
                     {
                         DataTable dt = new DataTable();
                         a.Fill(dt);
+                        if (dt.Rows.Count == 0) return null;
                         Company c = new Company();
                         c.Id = Convert.ToInt32(dt.Rows[0][dt.Columns.IndexOf("Id")]);
                         c.PersonId = Convert.ToInt32(dt.Rows[0][dt.Columns.IndexOf("PersonId")]);

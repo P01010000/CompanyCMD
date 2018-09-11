@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CompanyCMD.Shared;
+using CompanyCMD.Models;
 
 namespace CompanyCMD.Repository
 {
@@ -27,7 +27,8 @@ namespace CompanyCMD.Repository
                 cmd.Parameters.AddWithValue("@firstName", obj.FirstName);
                 cmd.Parameters.AddWithValue("@birthday", obj.Birthday);
                 cmd.Parameters.AddWithValue("@phone", obj.Phone);
-                cmd.Parameters.AddWithValue("@gender", obj.Gender);
+                cmd.Parameters.AddWithValue("@gender", obj.Gender.Equals("male", StringComparison.InvariantCultureIgnoreCase) ? 1 : 2);
+                cmd.Parameters.AddWithValue("@employeeSince", obj.EmployeeSince);
                 var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
                 returnParameter.Direction = ParameterDirection.ReturnValue;
                 try
@@ -38,8 +39,9 @@ namespace CompanyCMD.Repository
 
                     return (int)returnParameter.Value;
                 }
-                catch (SqlException)
+                catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return -1;
                 }
                 finally
@@ -127,7 +129,7 @@ namespace CompanyCMD.Repository
             {
                 SqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT Id, Name, Description, Supervisor, SuperDepartment, CompanyId FROM dbo.viDepartment";
+                cmd.CommandText = "SELECT Id, PersonId, LastName, FirstName, Birthday, Phone, Gender, EmployeeSince FROM dbo.viEmployee";
                 try
                 {
                     con.Open();

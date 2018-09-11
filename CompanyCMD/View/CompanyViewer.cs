@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CompanyCMD.Shared;
+using CompanyCMD.Models;
 using CompanyCMD.Repository;
 
 namespace CompanyCMD.View
