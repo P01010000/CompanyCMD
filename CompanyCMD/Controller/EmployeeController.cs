@@ -95,13 +95,17 @@ namespace CompanyCMD.Controller
                 return;
             }
 
-            Employee e = Repository.Retrieve(Convert.ToInt32(input));
+            //Employee e = Repository.Retrieve(Convert.ToInt32(input));
+            Employee e = new Employee();
+            e.Id = Convert.ToInt32(input);
             Console.WriteLine("Enter Last Name:");
             Console.WriteLine("Current: " + e.LastName);
-            e.LastName = Console.ReadLine();
+            input = Console.ReadLine();
+            if (input.Trim().Length > 0) e.LastName = input;
             Console.WriteLine("Enter First Name:");
             Console.WriteLine("Current: " + e.FirstName);
-            e.FirstName = Console.ReadLine();
+            input = Console.ReadLine();
+            if (input.Trim().Length > 0) e.FirstName = input;
             //while(c.FoundedAt == null)
             //{
             Console.WriteLine("Enter Birthday:");
@@ -113,15 +117,17 @@ namespace CompanyCMD.Controller
             catch (Exception)
             {
                 Console.WriteLine("Invalid Date");
-                return;
+                //return;
             }
             //}
             Console.WriteLine("Enter Phone:");
             Console.WriteLine("Current: " + e.Phone);
-            e.Phone = Console.ReadLine();
+            input = Console.ReadLine();
+            if (input.Trim().Length > 0) e.Phone = input;
             Console.WriteLine("Enter Gender:");
             Console.WriteLine("Current: " + e.Gender);
-            e.Gender = Console.ReadLine();
+            input = Console.ReadLine();
+            if (input.Trim().Length > 0) e.Gender = input;
             Console.WriteLine("Enter Employee Since:");
             Console.WriteLine("Current: " + e.EmployeeSince);
             try
@@ -131,7 +137,7 @@ namespace CompanyCMD.Controller
             catch (Exception)
             {
                 Console.WriteLine("Invalid Date");
-                return;
+                //return;
             }
 
             Repository.Update(e);

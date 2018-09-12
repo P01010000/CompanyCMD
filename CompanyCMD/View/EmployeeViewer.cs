@@ -29,11 +29,11 @@ namespace CompanyCMD.View
             Console.Write(" \u2551 ");
             Console.Write(Padding(e.FirstName, 16));
             Console.Write(" \u2551 ");
-            Console.Write(Padding(e.Birthday.ToString("yyyy-MM-dd"), 12));
+            //Console.Write(Padding(e.Birthday.ToString("yyyy-MM-dd"), 12));
             Console.Write(" \u2551 ");
             Console.Write(Padding(e.Gender, 12));
             Console.Write(" \u2551 ");
-            Console.Write(Padding(e.EmployeeSince.ToString("yyyy-MM-dd"), 12));
+            //Console.Write(Padding(e.EmployeeSince.ToString("yyyy-MM-dd"), 12));
             Console.Write(" \u2551\n");
 
             PrintSeparatorBot();
@@ -53,11 +53,11 @@ namespace CompanyCMD.View
                 Console.Write(" \u2551 ");
                 Console.Write(Padding(e.FirstName, 16));
                 Console.Write(" \u2551 ");
-                Console.Write(Padding(e.Birthday.ToString("yyyy-MM-dd"), 12));
+                //Console.Write(Padding(e.Birthday.ToString("yyyy-MM-dd"), 12));
                 Console.Write(" \u2551 ");
                 Console.Write(Padding(e.Gender, 12));
                 Console.Write(" \u2551 ");
-                Console.Write(Padding(e.EmployeeSince.ToString("yyyy-MM-dd"), 12));
+                //Console.Write(Padding(e.EmployeeSince.ToString("yyyy-MM-dd"), 12));
                 Console.Write(" \u2551\n");
             }
             PrintSeparatorBot();
